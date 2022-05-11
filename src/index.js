@@ -2,7 +2,7 @@
 const express = require('express');
 //web-push
 const webpush = require('web-push');
-
+const notifier = require('node-notifier');
 //body-parser
 const bodyParser = require('body-parser');
 
@@ -37,6 +37,16 @@ app.post('/subscribe-to', (req, res)=>{
     console.log(subscription.endpoint)
     //pass the object into sendNotification fucntion and catch any error
     webpush.sendNotification(subscription, payload).catch(err=> console.error(err));
+    setInterval(() => {
+        // String
+        notifier.notify('Message');
+
+        // Object
+        notifier.notify({
+        title: 'My notification',
+        message: 'Hello, there!'
+        });
+    }, 5000);
    
 });
 
